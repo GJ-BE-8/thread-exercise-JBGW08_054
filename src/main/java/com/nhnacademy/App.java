@@ -53,14 +53,18 @@ public class App
         threadA.interrupt();
 
         //TODO#3 Main Thread가 threadA, ThreadB가 종료될 때 까지 대기 합니다. Thread.yield를 사용 합니다.
-        try {
-            threadA.join();
-            threadB.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-//            Thread.currentThread().interrupt();
-        }
-        Thread.yield();
+//        try {
+//            threadA.join();
+//            threadB.join();
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+////            Thread.currentThread().interrupt();
+//        }
+//        Thread.yield();
+        do {
+            Thread.yield();
+        }while (threadA.isAlive() || threadB.isAlive());
+
 
 //        if(threadA.isAlive() || threadB.isAlive()) Thread.yield();
 //        if(threadA.isInterrupted() || threadB.isInterrupted()) Thread.yield();
