@@ -58,8 +58,12 @@ public class App
             threadB.join();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
+//            Thread.currentThread().interrupt();
         }
-//        Thread.yield();
+        Thread.yield();
+
+//        if(threadA.isAlive() || threadB.isAlive()) Thread.yield();
+//        if(threadA.isInterrupted() || threadB.isInterrupted()) Thread.yield();
 
         //threadA, threadB 상태를 출력 합니다.
         log.debug("threadA-status:{}",threadA.getState());
