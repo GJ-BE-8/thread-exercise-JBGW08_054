@@ -38,15 +38,21 @@ public class CounterHandler implements Runnable  {
                 log.debug("thread:{},state:{},count:{}",Thread.currentThread().getName(),Thread.currentThread().getState(),count);
             } catch (InterruptedException e) {
                 log.debug("{} - state - {}  - interupted 발생",Thread.currentThread().getName(),Thread.currentThread().getState());
-                throw new RuntimeException(e);
+//                System.out.println(Thread.currentThread().getName() + " " + Thread.currentThread().isInterrupted());
+//                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
             }
-
+//            System.out.println(Thread.currentThread().getName() + " " + Thread.currentThread().isInterrupted() + " after catch");
+//            System.out.println(Thread.currentThread().getName() + "  check");
             //TODO#2 해당 thread가 isInterrupted() 상태가 false 일 while loop를 실행 할 수 있도록 조건을 추가하세요
 //            System.out.println(Thread.currentThread().isInterrupted());
-            if(Thread.currentThread().isInterrupted()) break;
+            if(Thread.currentThread().isInterrupted()) {
+//                System.out.println(Thread.currentThread().getName() + "  before break");
+                break;
+            }
 //            Thread.yield();
 
         }while (count<countMaxSize);
-
+//        System.out.println(Thread.currentThread().getName() + "  end");
     }
 }
