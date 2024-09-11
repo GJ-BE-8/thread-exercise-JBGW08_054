@@ -46,6 +46,7 @@ public class SharedCounter {
             return count;
         } catch (Exception e){
 //            throw new Exception(e);
+            throw new RuntimeException(e);
         } finally {
             mutex.unlock();
         }
@@ -55,15 +56,33 @@ public class SharedCounter {
         /* TODO#1-3 count = count + 1 증가시키고 count를 반환 합니다.
            1-2 처럼 mutex를 이용해서 동기화 될 수 있도록 구현 합니다.
         */
-        count = count + 1;
-        return count;
+//        count = count + 1;
+//        return count;
+        try {
+            mutex.lock();
+            count = count + 1;
+            return count;
+        } catch (Exception e){
+//            throw new Exception(e);
+//            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            mutex.unlock();
+        }
     }
 
     public long decreaseAndGet(){
         /*TODO#1-4 count = count-1 감소시키고 count를 반환 합니다.
           1-2 처럼 mutex를 이용해서 동기화 될 수 있도록 구현 합니다.
         */
-        count = count - 1;
-        return count;
+        try {
+            mutex.lock();
+            count = count - 1;
+            return count;
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        } finally {
+            mutex.unlock();
+        }
     }
 }
